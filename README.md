@@ -1,2 +1,3 @@
 # SyntheticRetina
-AI Capstone Project
+## *PulseMedica CMPUT469 Capstone Project*
+### Identifying and Treating Retinal Disease with AI
