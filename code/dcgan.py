@@ -1,13 +1,9 @@
 # DCGAN based on Tensorflow tutorial
+import os
 
 # Setup
 import tensorflow as tf
 tf.__version__
-
-import os
-
-os.system('pip install -r requirements.txt')
-
 import glob
 import imageio
 import matplotlib.pyplot as plt
@@ -19,11 +15,9 @@ from IPython import display
 import pathlib
 import tensorflow_datasets as tfds
 
-os.system('cls')
-
 batch_size = 32
-img_height = 28
-img_width = 28
+img_height = 280
+img_width = 280
 directory = '../data/sample_seq'
 
 # Load and prepare the dataset
@@ -40,13 +34,13 @@ print(train_ds)
 class_names = train_ds.class_names
 print(class_names)
 
-plt.figure(figsize=(10, 10))
-for images, labels in train_ds.take(1):
-  for i in range(9):
-    ax = plt.subplot(3, 3, i + 1)
-    plt.imshow(images[i].numpy().astype("uint8"))
-    plt.title(class_names[labels[i]])
-    plt.axis("off")
+# plt.figure(figsize=(10, 10))
+# for images, labels in train_ds.take(1):
+#   for i in range(9):
+#     ax = plt.subplot(3, 3, i + 1)
+#     plt.imshow(images[i].numpy().astype("uint8"))
+#     plt.title(class_names[labels[i]])
+#     plt.axis("off")
 
 for image_batch, labels_batch in train_ds:
   print(image_batch.shape)
@@ -67,25 +61,25 @@ print(np.min(first_image), np.max(first_image))
 # The Generator
 def make_generator_model():
     model = tf.keras.Sequential()
-    model.add(layers.Dense(7*7*256, use_bias=False, input_shape=(100,)))
+    model.add(layers.Dense(int(img_width/4)*int(img_height/4)*256, use_bias=False, input_shape=(100,)))
     model.add(layers.BatchNormalization())
     model.add(layers.LeakyReLU())
 
-    model.add(layers.Reshape((7, 7, 256)))
-    assert model.output_shape == (None, 7, 7, 256)  # Note: None is the batch size
+    model.add(layers.Reshape((int(img_width/4), int(img_height/4), 256)))
+    assert model.output_shape == (None, int(img_width/4), int(img_height/4), 256)  # Note: None is the batch size
 
     model.add(layers.Conv2DTranspose(128, (5, 5), strides=(1, 1), padding='same', use_bias=False))
-    assert model.output_shape == (None, 7, 7, 128)
+    assert model.output_shape == (None, int(img_width/4), int(img_height/4), 128)
     model.add(layers.BatchNormalization())
     model.add(layers.LeakyReLU())
 
     model.add(layers.Conv2DTranspose(64, (5, 5), strides=(2, 2), padding='same', use_bias=False))
-    assert model.output_shape == (None, 14, 14, 64)
+    assert model.output_shape == (None, int(img_width/2), int(img_height/2), 64)
     model.add(layers.BatchNormalization())
     model.add(layers.LeakyReLU())
 
     model.add(layers.Conv2DTranspose(1, (5, 5), strides=(2, 2), padding='same', use_bias=False, activation='tanh'))
-    assert model.output_shape == (None, 28, 28, 1)
+    assert model.output_shape == (None, img_width, img_height, 1)
 
     return model
 
@@ -94,7 +88,7 @@ generator = make_generator_model()
 noise = tf.random.normal([1, 100])
 generated_image = generator(noise, training=False)
 
-plt.imshow(generated_image[0, :, :, 0], cmap='gray')
+plt.imshow(generated_image[0, :, :, 0])
 
 # The Discriminator
 def make_discriminator_model():
@@ -204,12 +198,12 @@ def generate_and_save_images(model, epoch, test_input):
     # This is so all layers run in inference mode (batchnorm).
     predictions = model(test_input, training=False)
 
-    fig = plt.figure(figsize=(4, 4))
-
+    fig = plt.figure(figsize=(12, 12))
+    
     for i in range(predictions.shape[0]):
         plt.subplot(4, 4, i+1)
         plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
-        plt.axis('off')
+        plt.axis("off")
 
     plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
     plt.show()
