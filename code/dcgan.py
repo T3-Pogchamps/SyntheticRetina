@@ -1,8 +1,6 @@
 # DCGAN based on Tensorflow tutorial
 import os
 
-os.system('pip install -r requirements.txt')
-
 # Setup
 import tensorflow as tf
 tf.__version__
@@ -16,8 +14,6 @@ import time
 from IPython import display
 import pathlib
 import tensorflow_datasets as tfds
-
-os.system('clear')
 
 batch_size = 32
 img_height = 280
