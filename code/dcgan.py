@@ -17,7 +17,7 @@ from IPython import display
 import pathlib
 import tensorflow_datasets as tfds
 
-os.system('cls')
+os.system('clear')
 
 batch_size = 32
 img_height = 280
@@ -29,6 +29,7 @@ directory = '../data/sample_seq'
 train_ds = tf.keras.utils.image_dataset_from_directory(
   directory,
   seed=123,
+  color_mode='grayscale',
   image_size=(img_height, img_width),
   batch_size=batch_size)
 
@@ -201,9 +202,12 @@ def generate_and_save_images(model, epoch, test_input):
     # This is so all layers run in inference mode (batchnorm).
     predictions = model(test_input, training=False)
 
+    fig = plt.figure(figsize=(12, 12))
+    
     for i in range(predictions.shape[0]):
         plt.subplot(4, 4, i+1)
-        plt.imshow(predictions[i, :, :, 0] * 255 + 255)
+        plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
+        plt.axis("off")
 
     plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
     plt.show()
