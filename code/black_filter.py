@@ -102,8 +102,8 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     #Remove_Blank_Images(source_dir="Z:/datasets/Retina/")
-    Remove_Blank_Images_Subdir(source_dir="Y:/datasets/Retina/",
-                               save_blank_img_path="Y:/datasets/Retina/")
+    Remove_Blank_Images_Subdir(source_dir="../data/sample_seq/",
+                               save_blank_img_path="../data/sample_seq/")
 
     #res = Is_Black_Image(image_PIL=Image.open("Y:/datasets/Retina/FluoresceinAngiography/CAPSTONE FA Sequences/blank/460R-21_15_05_51_559.png").convert('L'),
     #                     unique_thresh=100)
