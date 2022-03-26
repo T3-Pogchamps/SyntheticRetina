@@ -140,7 +140,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 # Define the training loop
 EPOCHS = 50
 noise_dim = 100
-num_examples_to_generate = 16
+num_examples_to_generate = 20
 
 # You will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -166,7 +166,7 @@ def train_step(images):
 
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
-    
+
 def train(dataset, epochs):
     for epoch in range(epochs):
         start = time.time()
@@ -191,7 +191,7 @@ def train(dataset, epochs):
     generate_and_save_images(generator,
                             epochs,
                             seed)
-  
+
 # Generate and save images
 def generate_and_save_images(model, epoch, test_input):
     # Notice `training` is set to False.
@@ -199,15 +199,15 @@ def generate_and_save_images(model, epoch, test_input):
     predictions = model(test_input, training=False)
 
     fig = plt.figure(figsize=(12, 12))
-    
+
     for i in range(predictions.shape[0]):
-        plt.subplot(4, 4, i+1)
+        plt.subplot(4, 5, i+1)
         plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
         plt.axis("off")
 
     plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
     plt.show()
-    
+
 # Train the model
 train(train_ds, EPOCHS)
 
@@ -231,6 +231,6 @@ with imageio.get_writer(anim_file, mode='I') as writer:
         writer.append_data(image)
     image = imageio.imread(filename)
     writer.append_data(image)
-    
+
 import tensorflow_docs.vis.embed as embed
 embed.embed_file(anim_file)
