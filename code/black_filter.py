@@ -71,7 +71,7 @@ def Remove_Blank_Images_Subdir(source_dir, DETECT_ONLY=False, save_blank_img_pat
 
     no_black_imgs = 0
     subdirs = listdir(source_dir)
-    for i, subdir in enumerate(subdirs[90:]):
+    for i, subdir in enumerate(subdirs[0:]):
         print("Processing subdirectory {} of {}".format(i+1, len(subdirs)))
         files = listdir(source_dir+subdir)
         for f in files:
