@@ -138,9 +138,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator=discriminator)
 
 # Define the training loop
-EPOCHS = 50
+EPOCHS = 20
 noise_dim = 100
-num_examples_to_generate = 16
+num_examples_to_generate = 20
 
 # You will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -201,7 +201,7 @@ def generate_and_save_images(model, epoch, test_input):
     fig = plt.figure(figsize=(12, 12))
     
     for i in range(predictions.shape[0]):
-        plt.subplot(4, 4, i+1)
+        plt.subplot(4, 5, i+1)
         plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
         plt.axis("off")
 
