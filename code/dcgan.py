@@ -18,7 +18,7 @@ import tensorflow_datasets as tfds
 batch_size = 32
 img_height = 280
 img_width = 280
-directory = '../data/sample_seq'
+directory = '../data/sample_filtered_seq/'
 
 # Load and prepare the dataset
 # (train_images, train_labels), (_, _) = tf.keras.datasets.mnist.load_data()
