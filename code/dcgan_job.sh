@@ -6,6 +6,5 @@
 #SBATCH --output=%N-%j.out  # %N for node name, %j for jobID
 
 module load cuda cudnn
-source ../../tensorflow/bin/activate
-tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &
+source tensorflow/bin/activate
 python3 ./dcgan.py
