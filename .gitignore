@@ -1,0 +1,7 @@
+
+*.gif
+*.png
+code/training_checkpoints/checkpoint
+code/training_checkpoints/ckpt-1.data-00000-of-00001
+*.data-00000-of-00001
+*.index
