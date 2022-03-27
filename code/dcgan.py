@@ -3,6 +3,10 @@ import os
 
 # Setup
 import tensorflow as tf
+node1 = tf.constant(3.0)
+node2 = tf.constant(4.0)
+print(node1, node2)
+print(node1 + node2)
 tf.__version__
 import glob
 import imageio
@@ -18,7 +22,7 @@ import tensorflow_datasets as tfds
 batch_size = 32
 img_height = 280
 img_width = 280
-directory = '../data/sample_filtered_seq/'
+directory = '../data/sample_seq/'
 
 # Load and prepare the dataset
 # (train_images, train_labels), (_, _) = tf.keras.datasets.mnist.load_data()
@@ -138,9 +142,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator=discriminator)
 
 # Define the training loop
-EPOCHS = 20
+EPOCHS = 60
 noise_dim = 100
-num_examples_to_generate = 20
+num_examples_to_generate = 16
 
 # You will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -201,7 +205,7 @@ def generate_and_save_images(model, epoch, test_input):
     fig = plt.figure(figsize=(12, 12))
 
     for i in range(predictions.shape[0]):
-        plt.subplot(4, 5, i+1)
+        plt.subplot(4, 4, i+1)
         plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
         plt.axis("off")
 
