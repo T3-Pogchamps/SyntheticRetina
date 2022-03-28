@@ -19,10 +19,10 @@ from IPython import display
 import pathlib
 import tensorflow_datasets as tfds
 
-batch_size = 32
+batch_size = 12
 img_height = 280
 img_width = 280
-directory = '../data/sample_seq/'
+directory = '../data/sample_filtered_seq/'
 
 # Load and prepare the dataset
 # (train_images, train_labels), (_, _) = tf.keras.datasets.mnist.load_data()
@@ -31,7 +31,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
   seed=123,
   color_mode='grayscale',
   image_size=(img_height, img_width),
-  batch_size=batch_size)
+  batch_size=None)
 
 print(train_ds)
 
@@ -142,9 +142,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator=discriminator)
 
 # Define the training loop
-EPOCHS = 60
+EPOCHS = 20
 noise_dim = 100
-num_examples_to_generate = 16
+num_examples_to_generate = 12
 
 # You will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -205,7 +205,7 @@ def generate_and_save_images(model, epoch, test_input):
     fig = plt.figure(figsize=(12, 12))
 
     for i in range(predictions.shape[0]):
-        plt.subplot(4, 4, i+1)
+        plt.subplot(4, 3, i+1)
         plt.imshow(predictions[i, :, :, 0] * 255 + 255, cmap='gray')
         plt.axis("off")
 

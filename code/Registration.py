@@ -1,5 +1,5 @@
 import numpy as np
-from Registration_src.Utils.Visualization import Preview_Matches, save_comparison_fig
+from Registration_src.Utils.Visualization import save_comparison_fig
 from Registration_src.Landmark_Matching import Landmark_Description_Set
 import cv2
 
