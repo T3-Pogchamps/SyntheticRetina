@@ -9,17 +9,19 @@ Performed registration on a specified sequence of FAs using functions from Regis
 if __name__ == "__main__":
 
     # Path to save registered images
-    OUTPUT_DIR = "./Outputs/Output_FA-FA/"
+    OUTPUT_DIR = "../data/registered_sample_seq/seq10/"
 
     # Path to sequence of images to register
-    target_sequence_dir = './Test_Images/FA_Sequence/'
+    target_sequence_dir = '../data/sample_seq/seq10/'
 
     # Load image sequence
     image_names_list = listdir(target_sequence_dir)
+    print(image_names_list)
     target_imgs = []
     base_img_no = -1
     for counter, f in enumerate(image_names_list):
         target_imgs.append(cv2.imread(target_sequence_dir + f))
+    print(target_imgs)
 
     # Register images to frame number 'base_img_no'
     # Save preview images tot 'path'

@@ -7,8 +7,8 @@ from Registration import FA_FA_registration_transform, Register_FA_Sequence
 
 if __name__ == "__main__":
     
-    target_dir = "../data/registered_seq/"
-    source_dir = "../data/sample_seq"
+    target_dir = "../data/registered_sample_seq/"
+    source_dir = "../data/sample_seq/"
     subdirs = listdir(source_dir)
     
     print(source_dir, target_dir, subdirs)
